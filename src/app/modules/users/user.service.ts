@@ -16,11 +16,18 @@ const getSingelUserDetailsFromDB = async (userId: string) => {
   return result;
 };
 
-
+// update user by userID
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const updatedUserDetailsFromDB = async (userId: any, userData: any) => {
+  const result = await UserDetailsModel.findOneAndUpdate({ userId }, userData, {
+    new: true,
+  });
+  return result;
+};
 
 export const usersServices = {
-    createUserDetailsIntoDB,
-    getAllUserFromDB,
-    getSingelUserDetailsFromDB,
-    
-}
+  createUserDetailsIntoDB,
+  getAllUserFromDB,
+  getSingelUserDetailsFromDB,
+  updatedUserDetailsFromDB,
+};
