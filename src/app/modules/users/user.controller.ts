@@ -4,19 +4,18 @@ import { orderValidationSchema } from '../orders/order.validation';
 
 import UserDetailsModel from './user.model';
 
-// create users
-
 const createUsers = async (req: Request, res: Response) => {
   try {
     const { user: userData } = req.body;
     const result = await usersServices.createUserDetailsIntoDB(userData);
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: 'User created successfully!',
       data: result,
     });
   } catch (err) {
+     // Log the error for debugging
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
@@ -24,8 +23,6 @@ const createUsers = async (req: Request, res: Response) => {
     });
   }
 };
-
-// get all users
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -36,34 +33,35 @@ const getAllUsers = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
+    
     res.status(500).json({
       success: false,
-      message: ' Users not getting from db',
+      message: 'Users not retrieved from the database',
       data: err,
     });
   }
 };
-// get singleUser by userId
 
-const getSingelUser = async (req: Request, res: Response) => {
+const getSingleUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
-    const result = await usersServices.getSingelUserDetailsFromDB(userId);
+    const result = await UserDetailsModel.findOne({ userId });
+
+    
     res.status(200).json({
       success: true,
       message: 'User fetched successfully!',
       data: result,
     });
   } catch (err) {
+    
     res.status(500).json({
       success: false,
-      message: ' User not getting from db',
+      message: 'User not retrieved from the database',
       data: err,
     });
   }
 };
-
-// update user by userId
 
 const updateUser = async (req: Request, res: Response) => {
   try {
@@ -80,6 +78,7 @@ const updateUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
+    
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
@@ -88,8 +87,6 @@ const updateUser = async (req: Request, res: Response) => {
   }
 };
 
-// delete user by userId
-
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
@@ -97,18 +94,18 @@ const deleteUser = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'User Deleted succesfully',
+      message: 'User deleted successfully',
       data: result,
     });
   } catch (err) {
+    
     res.status(500).json({
       success: false,
-      message: 'something went wrong',
+      message: 'Something went wrong',
       data: err,
     });
   }
 };
-
 
 const addNewProduct = async (req: Request, res: Response) => {
   try {
@@ -133,7 +130,7 @@ const addNewProduct = async (req: Request, res: Response) => {
     userOrders.orders.push(orderData);
     await userOrders.save();
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: 'Order created successfully!',
       data: null,
@@ -165,7 +162,7 @@ const getAllOrders = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'Order fetched successfully!',
+      message: 'Orders fetched successfully!',
       data: {
         orders: userOrders.orders,
       },
@@ -214,13 +211,12 @@ const calculateTotalPrice = async (req: Request, res: Response) => {
       data: error,
     });
   }
-  
 };
 
 export const UserControllers = {
   createUsers,
   getAllUsers,
-  getSingelUser,
+  getSingleUser,
   updateUser,
   deleteUser,
   addNewProduct,
