@@ -10,7 +10,7 @@ const createUsers = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'User Created Successfully',
+      message: 'User created successfully!',
       data: result,
     });
   } catch (err) {
@@ -29,7 +29,7 @@ const getAllUsers = async (req: Request, res: Response) => {
     const result = await usersServices.getAllUserFromDB();
     res.status(200).json({
       success: true,
-      message: 'Users getting successfully from DB',
+      message: 'Users fetched successfully!',
       data: result,
     });
   } catch (err) {
@@ -48,7 +48,7 @@ const getSingelUser = async (req: Request, res: Response) => {
     const result = await usersServices.getSingelUserDetailsFromDB(userId);
     res.status(200).json({
       success: true,
-      message: 'User getting successfully from DB',
+      message: 'User fetched successfully!',
       data: result,
     });
   } catch (err) {
@@ -73,7 +73,7 @@ const updateUser = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'User Updated Successfully',
+      message: 'User updated successfully!',
       data: result,
     });
   } catch (err) {
