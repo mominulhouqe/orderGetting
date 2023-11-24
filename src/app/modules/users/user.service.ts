@@ -1,4 +1,3 @@
-
 import { UserDetails } from './user.interface';
 import UserDetailsModel from './user.model';
 
@@ -29,11 +28,10 @@ const updatedUserDetailsFromDB = async (userId: any, userData: any) => {
 // delete user by userId
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const deleteUserDetailsFromDB  = async (userId:any)=>{
-  const result = await UserDetailsModel.findOneAndDelete({userId});
+const deleteUserDetailsFromDB = async (userId: any) => {
+  const result = await UserDetailsModel.findOneAndDelete({ userId });
   return result;
-}
-
+};
 
 export const usersServices = {
   createUserDetailsIntoDB,
