@@ -16,6 +16,8 @@ const getSingelUserDetailsFromDB = async (userId: string) => {
   return result;
 };
 
+
+
 export const usersServices = {
     createUserDetailsIntoDB,
     getAllUserFromDB,

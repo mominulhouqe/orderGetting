@@ -2,7 +2,11 @@ import { Schema, model } from 'mongoose';
 import { UserDetails } from './user.interface';
 
 const UserDetailsSchema = new Schema<UserDetails>({
-  userId: Number,
+  userId: {
+    type: Number,
+    required: [true, 'User ID is required'],
+    unique: true,
+  },
   username: {
     type: String,
     required: [true, 'Username is required'],
