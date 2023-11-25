@@ -1,4 +1,5 @@
 export type UserDetails = {
+  isModified(arg0: string): unknown;
   userId: number;
   username: string;
   password: string;

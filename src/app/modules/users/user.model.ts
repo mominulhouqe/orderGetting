@@ -1,6 +1,10 @@
 import { Schema, model } from 'mongoose';
+import bcrypt from 'bcrypt';
 import { UserDetails } from './user.interface';
+import config from '../../config';
 
+
+// monooges schema
 const UserDetailsSchema = new Schema<UserDetails>({
   userId: {
     type: Number,
@@ -75,6 +79,36 @@ const UserDetailsSchema = new Schema<UserDetails>({
   ],
 });
 
+
+// middelewire
+UserDetailsSchema.pre('save', async function (next) {
+  const user = this as unknown as UserDetails;
+
+  if (user.isModified('password') && user.password.trim() !== '') {
+    try {
+  
+      const hashedPassword = await bcrypt.hash(user.password, Number( config.bycript_url));
+      user.password = hashedPassword;
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+  
+  return next();
+});
+
+
+UserDetailsSchema.post('save', function (doc, next) {
+
+  // eslint-disable-next-line no-console
+  console.log('UserDetails  saved:', doc);
+  return next();
+});
+
+
+
+// Create the UserDetails Mongoose model
 const UserDetailsModel = model<UserDetails>('UserDetails', UserDetailsSchema);
 
 export default UserDetailsModel;

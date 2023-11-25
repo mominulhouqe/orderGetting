@@ -9,4 +9,6 @@ export default {
   port: process.env.PORT,
   // eslint-disable-next-line no-undef
   database_url: process.env.DATABASE_URL,
+  // eslint-disable-next-line no-undef
+  bycript_url: process.env.BYCRIPT_URL,
 };
